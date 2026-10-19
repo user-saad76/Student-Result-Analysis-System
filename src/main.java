@@ -1,4 +1,5 @@
 
+
 import java.util.Scanner;
 
 public class main {
@@ -19,7 +20,7 @@ public class main {
                for(int column = 0;column<totalSubjects;column++){
                    sum = sum + marks[row][column];
                }
-               double Average = sum/totalStudents;
+               double Average =  (double) sum/totalSubjects;
                System.out.println(students[row] + " has average = " + Average);
            }
     }
@@ -30,12 +31,114 @@ public class main {
                          System.out.println(students[row] + "has failed in " + subjects[column]);
                      }
                      else{
-                         System.out.println(students[row] + "has failed in " + subjects[column]);
+                         System.out.println(students[row] + "has passed in " + subjects[column]);
                      }
                  }
              }
     }
+    static void calculateGrade(int[][] marks,String[] students,int totalStudents,int totalSubjects,String[] subjects){
+                   for(int row = 0;row<totalStudents;row++){
+                       for(int column = 0;column<totalSubjects;column++){
+                           if(marks[row][column]>=90){
+                               System.out.println(students[row] + " has got A grade in " + subjects[column]);
+                           }
+                           else if(marks[row][column]<90&&marks[row][column]>=75){
+                               System.out.println(students[row] + " has got B grade in " + subjects[column]);
+                           }
+                           else if(marks[row][column]<75&&marks[row][column]>=55){
+                               System.out.println(students[row] + " has got C grade in " + subjects[column]);
+                           }
+                           else if(marks[row][column]<55&&marks[row][column]>=40){
+                               System.out.println(students[row] + " has got D grade in " + subjects[column]);
+                           }
+                           else{
+                               System.out.println(students[row] + " has got F grade in " + subjects[column]);
+                           }
+                       }
+                   }
+    }
+     static void highestMark(int[][] marks,String[] students,int totalStudents,int totalSubjects){
 
+                 String student  = " ";
+                 int highest = 0;
+                 for(int row = 0;row<totalStudents;row++){
+                     int sum = 0;
+                     for(int column = 0;column<totalSubjects;column++){
+                        sum = sum + marks[row][column];
+
+                     }
+                     if(sum>highest){
+                         highest = sum;
+                         student = students[row];
+                     }
+
+                 }
+           System.out.println(student + " has got highest total marks " + highest);
+     }
+     static void subjectHighestScore(int[][] marks,String[] students,int totalStudents,int totalSubjects,String[] subjects){
+                  for(int column = 0;column<totalSubjects;column++){
+                        int sum = 0;
+                        int highest = 0;
+                        String student  = " ";
+                        String subject = " ";
+                        for(int row = 0;row<totalStudents;row++){
+                            sum = sum + marks[row][column];
+                        }
+                       if(sum>highest){
+                           highest = sum;
+                           student = students[column];
+                           subject = subjects[column];
+                       }
+                      System.out.println(student + " has got highest score in  " + subject + " marks : " + highest);
+                  }
+
+
+
+
+     }
+   static void CountfailedStudent(int[][] marks,int totalStudents,int totalSubjects){
+          int count = 0;
+         for(int row = 0;row<totalStudents;row++){
+             for(int column = 0;column<totalSubjects;column++){
+                 if(marks[row][column]<40){
+                     count++;
+                     break;
+                 }
+             }
+         }
+       System.out.println("There are total " + count + " failed students");
+   }
+   static void SearchSearch(int[][] marks,String[] students,int totalStudents,int totalSubjects,String[] subjects,String search){
+        boolean isSearch = false;
+        for(int row = 0;row<totalStudents;row++){
+            if(search.equalsIgnoreCase(students[row])){
+                for(int i = 0;i<totalSubjects;i++){
+                    System.out.print(subjects[i] + " ");
+                }
+                System.out.println();
+                for(int column = 0;column<totalSubjects;column++){
+                    System.out.print(marks[row][column] + " ");
+                }
+                System.out.println();
+                isSearch = true;
+            }
+        }
+        if(!isSearch){
+            System.out.println("You have search invalid ");
+        }
+   }
+
+   static void SubjectWiseAverage(int[][] marks,int totalStudents,int totalSubjects ,String[] students,String[] subjects){
+           for(int column = 0;column<totalStudents;column++){
+                int sum = 0;
+
+               for(int row = 0;row<totalSubjects;row++){
+                  sum = sum + marks[row][column];
+               }
+               int Average = sum/totalStudents;
+               System.out.println(students[column] + " has average of " + subjects[column] + " : " + Average);
+           }
+   }
 
 
 
@@ -78,7 +181,7 @@ public class main {
             }
         }
         System.out.println();
-        for(int y= 0;y<totalStudents;y++){
+        for(int y= 0;y<totalSubjects;y++){
             System.out.print(subjects[y] + "   ");
         }
         System.out.println();
@@ -96,59 +199,76 @@ public class main {
         System.out.println("3,Check Fail/Pass ");
         System.out.println("4,Calculate grade ");
         System.out.println("5,Find highest marks student ");
-        System.out.println("6,Find failed students count ");
-        System.out.println("7,Calculate subject wise Average ");
+        System.out.println("6,Find highest score student in subjects ");
+        System.out.println("7,Find failed students count ");
         System.out.println("8,Specific student search ");
-        System.out.println("9,Exit ");
-        int t = 0;
+        System.out.println("9,Calculate subject wise Average ");
+        System.out.println("10,Exit ");
         System.out.println();
-        System.out.print("Enter your choice : ");
-        int choice = input.nextInt();
-        boolean isMove = false;
-        while(t<=8){
+         int choice = 0;
+        while(choice!=10){
+            System.out.print("Enter your choice : ");
+             choice = input.nextInt();
            if(choice==1){
                System.out.println("Total marks of students : ");
                System.out.println();
                TotalMarksOfStudents(marks,students,totalStudents, totalSubjects);
-               isMove = true;
+
 
            }
            else if(choice == 2){
                System.out.println("Average of students : ");
+               System.out.println("******************************************");
                Average(marks,students,totalStudents,totalSubjects);
-               isMove = true;
+               System.out.println("******************************************");
 
            }
            else if(choice == 3){
                System.out.println("Pass/Fail subjects of all students :");
+               System.out.println("******************************************");
                checkFailPass(marks,students,totalStudents,totalSubjects,subjects);
-               isMove = true;
+               System.out.println("******************************************");
+
            }
            else if(choice == 4){
-               isMove = true;
+               System.out.println("Grades of students in subjects");
+               System.out.println("******************************************");
+               calculateGrade( marks,students,totalStudents,totalSubjects,subjects);
+               System.out.println("******************************************");
+
+
            }
            else if(choice == 5){
-               isMove = true;
+               System.out.println(" Student who get highest marks : ");
+               System.out.println();
+               highestMark(marks,students, totalStudents, totalSubjects);
+
            }
            else if(choice == 6){
-               isMove = true;
+               System.out.println(" Students score highest in subject : ");
+               System.out.println();
+               subjectHighestScore( marks, students,totalStudents, totalSubjects, subjects);
+
            }
            else if(choice == 7){
-               isMove = true;
+               System.out.println(" Failed students : ");
+               System.out.println();
+               CountfailedStudent(marks,totalStudents,totalSubjects);
            }
            else if(choice == 8){
-               isMove = true;
+               input.nextLine();
+               System.out.print("Search the specific student : ");
+               String search = input.nextLine();
+               SearchSearch( marks, students, totalStudents,totalSubjects,subjects, search);
+
            }
            else if(choice == 9){
-
+               System.out.println(" Subject-wise average :");
+               SubjectWiseAverage( marks, totalStudents, totalSubjects ,students,subjects);
            }
-            if(isMove){
-                t++;
-            }
-            else{
-                break;
-            }
-
+           else{
+               System.out.println("You have invalid choice ");
+           }
         }
 
     }
