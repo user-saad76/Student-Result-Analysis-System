@@ -76,20 +76,17 @@ public class main {
            System.out.println(student + " has got highest total marks " + highest);
      }
      static void subjectHighestScore(int[][] marks,String[] students,int totalStudents,int totalSubjects,String[] subjects){
-                  for(int column = 0;column<totalSubjects;column++){
-                        int sum = 0;
-                        int highest = 0;
-                        String student  = " ";
-                        String subject = " ";
-                        for(int row = 0;row<totalStudents;row++){
-                            sum = sum + marks[row][column];
-                        }
-                       if(sum>highest){
-                           highest = sum;
-                           student = students[column];
-                           subject = subjects[column];
-                       }
-                      System.out.println(student + " has got highest score in  " + subject + " marks : " + highest);
+
+                  String subject = " ";
+                  for(int row = 0;row<totalStudents;row++){
+                      int highest = 0;
+                      for(int column = 0;column<totalSubjects;column++){
+                         if(marks[row][column]>highest){
+                             highest = marks[row][column];
+                             subject = subjects[column];
+                         }
+                      }
+                      System.out.println(students[row] + " has got highest score " + highest + " in " + subject);
                   }
 
 
@@ -108,7 +105,7 @@ public class main {
          }
        System.out.println("There are total " + count + " failed students");
    }
-   static void SearchSearch(int[][] marks,String[] students,int totalStudents,int totalSubjects,String[] subjects,String search){
+   static void SpecialSearch(int[][] marks,String[] students,int totalStudents,int totalSubjects,String[] subjects,String search){
         boolean isSearch = false;
         for(int row = 0;row<totalStudents;row++){
             if(search.equalsIgnoreCase(students[row])){
@@ -129,20 +126,16 @@ public class main {
    }
 
    static void SubjectWiseAverage(int[][] marks,int totalStudents,int totalSubjects ,String[] students,String[] subjects){
-           for(int column = 0;column<totalStudents;column++){
-                int sum = 0;
-
-               for(int row = 0;row<totalSubjects;row++){
+         for(int column = 0;column<totalSubjects;column++){
+             int sum = 0;
+             for(int row = 0;row<totalStudents;row++){
                   sum = sum + marks[row][column];
-               }
-               int Average = sum/totalStudents;
-               System.out.println(students[column] + " has average of " + subjects[column] + " : " + Average);
-           }
+             }
+             int average = sum/totalStudents;
+             System.out.println(subjects[column] + " average: " + average);
+
+         }
    }
-
-
-
-
 
 
     public static void main(String[] args) {
@@ -259,7 +252,7 @@ public class main {
                input.nextLine();
                System.out.print("Search the specific student : ");
                String search = input.nextLine();
-               SearchSearch( marks, students, totalStudents,totalSubjects,subjects, search);
+               SpecialSearch( marks, students, totalStudents,totalSubjects,subjects, search);
 
            }
            else if(choice == 9){
