@@ -126,15 +126,18 @@ public class main {
    }
 
    static void SubjectWiseAverage(int[][] marks,int totalStudents,int totalSubjects ,String[] students,String[] subjects){
-         for(int column = 0;column<totalSubjects;column++){
-             int sum = 0;
-             for(int row = 0;row<totalStudents;row++){
-                  sum = sum + marks[row][column];
-             }
-             int average = sum/totalStudents;
-             System.out.println(subjects[column] + " average: " + average);
 
-         }
+       for(int column = 0;column<totalStudents;column++){
+           int highest = marks[0][column];
+           String student = students[0];
+           for(int row = 1;row<totalSubjects;row++){
+               if(marks[row][column]<highest){
+                   highest = marks[row][column];
+                   student = students[row];
+               }
+           }
+           System.out.println(student + " score highest in " + subjects[column] + " got " + highest);
+       }
    }
 
 
@@ -258,9 +261,6 @@ public class main {
            else if(choice == 9){
                System.out.println(" Subject-wise average :");
                SubjectWiseAverage( marks, totalStudents, totalSubjects ,students,subjects);
-           }
-           else{
-               System.out.println("You have invalid choice ");
            }
         }
 
