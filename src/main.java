@@ -77,17 +77,17 @@ public class main {
      }
      static void subjectHighestScore(int[][] marks,String[] students,int totalStudents,int totalSubjects,String[] subjects){
 
-                  String subject = " ";
-                  for(int row = 0;row<totalStudents;row++){
-                      int highest = 0;
-                      for(int column = 0;column<totalSubjects;column++){
-                         if(marks[row][column]>highest){
-                             highest = marks[row][column];
-                             subject = subjects[column];
-                         }
-                      }
-                      System.out.println(students[row] + " has got highest score " + highest + " in " + subject);
-                  }
+         for(int column = 0;column<totalSubjects;column++){
+             int highest = marks[0][column];
+             String student = students[0];
+             for(int row = 1;row<totalStudents;row++){
+                 if(marks[row][column]>highest){
+                     highest = marks[row][column];
+                     student = students[row];
+                 }
+             }
+             System.out.println(student + " score highest in " + subjects[column] + " got " + highest);
+         }
 
 
 
@@ -126,18 +126,16 @@ public class main {
    }
 
    static void SubjectWiseAverage(int[][] marks,int totalStudents,int totalSubjects ,String[] students,String[] subjects){
+          for(int column = 0;column<totalSubjects;column++){
+              String subject = subjects[column];
+              int sum = 0;
+              for(int row = 0;row<totalStudents;row++){
+                  sum = sum + marks[row][column];
+              }
+              double average = (double) sum/totalStudents;
+              System.out.println(subject + " has average of " + average);
+          }
 
-       for(int column = 0;column<totalStudents;column++){
-           int highest = marks[0][column];
-           String student = students[0];
-           for(int row = 1;row<totalSubjects;row++){
-               if(marks[row][column]<highest){
-                   highest = marks[row][column];
-                   student = students[row];
-               }
-           }
-           System.out.println(student + " score highest in " + subjects[column] + " got " + highest);
-       }
    }
 
 
@@ -262,6 +260,7 @@ public class main {
                System.out.println(" Subject-wise average :");
                SubjectWiseAverage( marks, totalStudents, totalSubjects ,students,subjects);
            }
+
         }
 
     }
